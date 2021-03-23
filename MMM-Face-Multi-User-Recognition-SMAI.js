@@ -107,7 +107,7 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
     switch (notification) {
       case "USERS_LOGIN": {
         // Face Rec sends multiple notifications even if user is already logged in and logout timer still active.
-        if (this.config.useMMMFaceRecoDNN === true && this.loggedIn === true) {
+        if (this.config.useMMMFaceRecoDNN === true && this.loggedIn === false) {
           Log.log("Notification: " + notification + " from Mirror. Logging in "
               + payload);
 
