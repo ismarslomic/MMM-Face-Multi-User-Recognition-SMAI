@@ -30,12 +30,8 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
     // Default userName and userImage when loading the module
     this.userName = GUEST_USER_NAME;
     this.userImage = GUEST_IMAGE;
-
     // We are not logged in when loading the module
     this.loggedIn = false;
-
-    // Flag for check if module is loaded
-    this.loaded = false;
   },
 
   // This will be called every update and update the image based on:
