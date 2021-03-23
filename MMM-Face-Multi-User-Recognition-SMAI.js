@@ -41,7 +41,7 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
     // create element wrapper for show into the module
     const wrapper = document.createElement("div");
 
-    if(this.config.showTitle){
+    if (this.config.showTitle) {
       wrapper.innerHTML = this.translate('TITLE');
     }
 
