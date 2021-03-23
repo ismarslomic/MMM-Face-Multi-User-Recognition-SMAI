@@ -50,7 +50,7 @@ npm install
 ## Step 2 – Add files to the Config.js
 Here is an example for an entry in `config.js`
 
-```json
+```javascript
 {
   module: "MMM-Face-Multi-User-Recognition-SMAI",
   position: "top_right",
@@ -62,7 +62,7 @@ Here is an example for an entry in `config.js`
     afternoonStartTime: 12,
     afternoonEndTime: 17,
   }
-},
+}
 ```
 
 ## Step 3 – Configuring the Face Recognition Structure
