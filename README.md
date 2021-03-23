@@ -60,7 +60,7 @@ Here is an example for an entry in `config.js`
     morningStartTime: 3,
     morningEndTime: 12,
     afternoonStartTime: 12,
-    afternoonEndTime: 17,
+    afternoonEndTime: 17
   }
 }
 ```
