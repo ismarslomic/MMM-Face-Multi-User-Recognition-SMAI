@@ -48,7 +48,7 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
 
     // Figure out what time of day message we want
     let message = this.translate('WELCOME');
-    if (this.loggedIn) {
+    if (this.loggedIn === true) {
       if (this.timeOfDay() === MORNING) {
         message = this.translate('GOOD_MORNING');
       } else if (this.timeOfDay() === AFTERNOON) {
@@ -107,7 +107,7 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
     switch (notification) {
       case "USERS_LOGIN": {
         // Face Rec sends multiple notifications even if user is already logged in and logout timer still active.
-        if (this.config.useMMMFaceRecoDNN && this.loggedIn) {
+        if (this.config.useMMMFaceRecoDNN === true && this.loggedIn === true) {
           Log.log("Notification: " + notification + " from Mirror. Logging in "
               + payload);
 
