@@ -23,17 +23,14 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
   requiresVersion: "2.1.0", // Required version of MagicMirror
 
   start: function () {
-    var self = this;
-    var dataRequest = null;
-    var dataNotification = null;
+    // Default userName and userImage when loading the module
     this.userName = "Guest";
     this.userImage = "guest.gif";
-    this.timer = null;
 
-    // Are we logged in or not
+    // We are not logged in when loading the module
     this.loggedIn = false;
 
-    //Flag for check if module is loaded
+    // Flag for check if module is loaded
     this.loaded = false;
   },
 
@@ -41,19 +38,17 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
   //	.userId
   //	.userName
   getDom: function () {
-    var self = this;
-
     // create element wrapper for show into the module
-    var wrapper = document.createElement("div");
+    const wrapper = document.createElement("div");
     wrapper.innerHTML = this.translate('TITLE');
     wrapper.className = "face-image";
 
     // Figure out what time of day message we want
-    var message = this.translate('WELCOME');
+    let message = this.translate('WELCOME');
     if (this.userName !== "Guest") {
-      if (this.timeOfDay() == MORNING) {
+      if (this.timeOfDay() === MORNING) {
         message = this.translate('GOOD_MORNING');
-      } else if (this.timeOfDay() == AFTERNOON) {
+      } else if (this.timeOfDay() === AFTERNOON) {
         message = this.translate('GOOD_AFTERNOON');
       } else {
         message = this.translate('GOOD_EVENING');
@@ -61,14 +56,14 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
     }
 
     // Ceate the image element and show gif by default.
-    var imgHolderElement = document.createElement("p");
-    imgHolderElement.innerHTML = message + " " + this.capitalizeWords(
+    const imgHolderElement = document.createElement("p");
+    imgHolderElement.innerHTML = message + ", " + this.capitalizeWords(
         this.userName);
     imgHolderElement.style.width = this.config.width;
 
     // Asychronoulsy load either GIF or face (as name).
-    var img = document.createElement("img");
-    var newImg = new Image;
+    const img = document.createElement("img");
+    const newImg = new Image;
     newImg.src = "modules/MMM-Face-Multi-User-Recognition-SMAI/public/"
         + this.userImage;
     newImg.onload = function () {
@@ -78,7 +73,6 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
 
     wrapper.appendChild(imgHolderElement);
     return wrapper;
-
   },
 
   getScripts: function () {
@@ -95,21 +89,22 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
   getTranslations: function () {
     //FIXME: This can be load a one file javascript definition
     return {
+      de: "translations/de.json",
       en: "translations/en.json",
       es: "translations/es.json",
+      nb: "translations/nb.json",
       ko: "translations/ko.json"
     };
   },
 
   notificationReceived: function (notification, payload, sender) {
-    var self = this;
+    const self = this;
 
-    // Log.log("Got Notificaiton: " + notification + " Payload: " + payload);
     switch (notification) {
       case "USERS_LOGIN": {
         // Face Rec sends multiple notifications even if user is already logged in and logout timer still active.
-        if (this.config.useMMMFaceRecoDNN === true && this.loggedIn == false) {
-          Log.log("Notificaiton: " + notification + " from Mirror. Logging in "
+        if (this.config.useMMMFaceRecoDNN === true && this.loggedIn === false) {
+          Log.log("Notification: " + notification + " from Mirror. Logging in "
               + payload);
 
           // Fetch the users image.
@@ -121,11 +116,11 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
         break;
       }
       case "USERS_LOGOUT_MODULES": {
-        Log.log("Notificaiton: " + notification + " from Mirror. Logging out "
+        Log.log("Notification: " + notification + " from Mirror. Logging out "
             + payload);
 
         this.loggedIn = false;
-        this.userName = "Mr. Nobody";
+        this.userName = this.translate('GUEST_NAME');
         this.userImage = "guest.gif";
         self.updateDom(100);
 
@@ -141,7 +136,7 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
   },
 
   timeOfDay: function () {
-    var hour = moment().hour();
+    const hour = moment().hour();
 
     if (hour >= this.config.morningStartTime && hour
         < this.config.morningEndTime) {
