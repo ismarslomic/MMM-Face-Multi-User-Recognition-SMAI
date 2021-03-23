@@ -10,7 +10,6 @@
 const MORNING = -1;
 const AFTERNOON = 0;
 const EVENING = 1;
-const GUEST_USER_NAME = "Guest";
 const GUEST_IMAGE = "guest.gif";
 
 Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
@@ -28,7 +27,7 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
 
   start: function () {
     // Default userName and userImage when loading the module
-    this.userName = GUEST_USER_NAME;
+    this.userName = this.translate('GUEST_NAME');
     this.userImage = GUEST_IMAGE;
     // We are not logged in when loading the module
     this.loggedIn = false;
@@ -49,7 +48,7 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
 
     // Figure out what time of day message we want
     let message = this.translate('WELCOME');
-    if (this.userName !== GUEST_USER_NAME) {
+    if (this.loggedIn) {
       if (this.timeOfDay() === MORNING) {
         message = this.translate('GOOD_MORNING');
       } else if (this.timeOfDay() === AFTERNOON) {
@@ -68,7 +67,7 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
     // Asychronoulsy load either GIF or face (as name).
     const img = document.createElement("img");
     const newImg = new Image;
-    newImg.src = this.data.path + "/public" + this.userImage;
+    newImg.src = this.data.path + "public/" + this.userImage;
 
     newImg.onload = function () {
       img.src = this.src;
