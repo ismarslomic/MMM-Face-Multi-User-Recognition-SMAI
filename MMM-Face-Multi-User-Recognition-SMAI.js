@@ -68,7 +68,7 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
     // Asychronoulsy load either GIF or face (as name).
     const img = document.createElement("img");
     const newImg = new Image;
-    newImg.src = this.data.path + "/" + this.userImage;
+    newImg.src = this.data.path + "/public" + this.userImage;
 
     newImg.onload = function () {
       img.src = this.src;
