@@ -55,7 +55,8 @@ Here is an example for an entry in `config.js`
   module: "MMM-Face-Multi-User-Recognition-SMAI",
   position: "top_right",
   config: {
-    useMMMFaceRecoDNN: true,
+    useMMMFaceRecoDNN: true, 
+    showTitle: true,
     width: "200px",
     morningStartTime: 3,
     morningEndTime: 12,
@@ -111,6 +112,7 @@ Greetings message is displayed just above the user image, based of the time of t
 | Option                      | Description
 |---------------------------- |-----------
 | `useMMMFaceRecoDNN`         | *Required* Use the DNN detection type. Currently only supported type. <br><br>**Type:** `bool` <br>**Default Value**: `true`
+| `showTitle`                 | Show title of the module <br><br>**Type:** `bool` <br>**Default Value**: `true`
 | `width`                     | The width of the HTML image container. <br><br>**Type:** `string` <br>**Default Value**: `200px`
 | `morningStartTime`          | Hour when morning start, used for greetings message. <br><br>**Type:** `int` <br>**Default Value**: `3`
 | `morningEndTime`            | Hour when morning ends, used for greetings message. <br><br>**Type:** `int` <br>**Default Value**: `12`

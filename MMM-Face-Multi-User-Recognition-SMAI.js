@@ -10,9 +10,13 @@
 const MORNING = -1;
 const AFTERNOON = 0;
 const EVENING = 1;
+const GUEST_USER_NAME = "Guest";
+const GUEST_IMAGE = "guest.gif";
+
 Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
   defaults: {
     useMMMFaceRecoDNN: true,
+    showTitle: true,
     width: "200px",
     morningStartTime: 3,
     morningEndTime: 12,
@@ -24,8 +28,8 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
 
   start: function () {
     // Default userName and userImage when loading the module
-    this.userName = "Guest";
-    this.userImage = "guest.gif";
+    this.userName = GUEST_USER_NAME;
+    this.userImage = GUEST_IMAGE;
 
     // We are not logged in when loading the module
     this.loggedIn = false;
@@ -40,12 +44,16 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
   getDom: function () {
     // create element wrapper for show into the module
     const wrapper = document.createElement("div");
-    wrapper.innerHTML = this.translate('TITLE');
+
+    if(this.config.showTitle){
+      wrapper.innerHTML = this.translate('TITLE');
+    }
+
     wrapper.className = "face-image";
 
     // Figure out what time of day message we want
     let message = this.translate('WELCOME');
-    if (this.userName !== "Guest") {
+    if (this.userName !== GUEST_USER_NAME) {
       if (this.timeOfDay() === MORNING) {
         message = this.translate('GOOD_MORNING');
       } else if (this.timeOfDay() === AFTERNOON) {
@@ -103,7 +111,7 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
     switch (notification) {
       case "USERS_LOGIN": {
         // Face Rec sends multiple notifications even if user is already logged in and logout timer still active.
-        if (this.config.useMMMFaceRecoDNN === true && this.loggedIn === false) {
+        if (this.config.useMMMFaceRecoDNN && this.loggedIn) {
           Log.log("Notification: " + notification + " from Mirror. Logging in "
               + payload);
 
@@ -113,6 +121,7 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
           this.userImage = payload + ".jpg"; //Assume for now.
           self.updateDom(100);
         }
+
         break;
       }
       case "USERS_LOGOUT_MODULES": {
@@ -121,7 +130,7 @@ Module.register("MMM-Face-Multi-User-Recognition-SMAI", {
 
         this.loggedIn = false;
         this.userName = this.translate('GUEST_NAME');
-        this.userImage = "guest.gif";
+        this.userImage = GUEST_IMAGE;
         self.updateDom(100);
 
         break;
