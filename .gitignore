@@ -3,3 +3,4 @@ uploads
 npm-debug.log
 public
 .idea
+.DS_Store
